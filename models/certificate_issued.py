@@ -28,6 +28,13 @@ class CertificateIssued(models.Model):
     recipient_name = fields.Char('Recipient Name', compute='_compute_recipient_name', store=True)
 
     certificate_type_id = fields.Many2one('certificate.type', string="Certificate Type")
+    responsible_by = fields.Many2one(
+        'res.users',
+        string='Responsible By',
+        default=lambda self: self.env.user,
+        readonly=True,
+        tracking=True
+    )
 
     issue_date = fields.Date('Issue Date', default=fields.Date.today())
     expiry_date = fields.Date('Valid Until')
@@ -36,7 +43,6 @@ class CertificateIssued(models.Model):
     signatory_id = fields.Many2one(
         'hr.employee',
         string="Signatory",
-        domain="[('signature_image', '!=', False)]",
         help="Person whose signature will appear"
     )
 

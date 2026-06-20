@@ -11,6 +11,7 @@
                 <field name="name"/>
                 <field name="recipient_type"/>
                 <field name="recipient_name"/>
+                <field name="responsible_by"/>
                 <field name="issue_date"/>
                 <field name="state" widget="badge" decoration-warning="state == 'draft'"
                        decoration-success="state == 'issued'"
@@ -66,9 +67,10 @@
 
                         <group>
                             <field name="certificate_type_id"/>
+                            <field name="responsible_by" readonly="1"/>
                             <field name="issue_date"/>
                             <field name="expiry_date"/>
-                            <field name="signatory_id" domain="[('signature_image', '!=', False)]"/>
+                            <field name="signatory_id"/>
                         </group>
                     </group>
 
