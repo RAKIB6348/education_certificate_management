@@ -2,142 +2,160 @@
     <template id="certificate_report_template">
         <t t-call="web.html_container">
             <style>
-    @page {
-        size: 297mm 210mm;
-        margin: 0;
-    }
+                @page {
+                    size: 297mm 210mm;
+                    margin: 0;
+                    padding: 0;
+                }
 
-    html, body {
-        width: 297mm !important;
-        height: 210mm !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-    }
+                html, body {
+                    width: 297mm !important;
+                    height: 210mm !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    overflow: hidden !important;
+                }
 
-    .page,
-    .article,
-    .certificate-page {
-        width: 297mm !important;
-        height: 210mm !important;
-        max-height: 210mm !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-        page-break-before: avoid !important;
-        page-break-after: avoid !important;
-        page-break-inside: avoid !important;
-    }
-</style>
+                .page,
+                .article,
+                .certificate-page {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    overflow: hidden !important;
+                    page-break-before: avoid !important;
+                    page-break-after: avoid !important;
+                    page-break-inside: avoid !important;
+                }
+            </style>
 
             <t t-foreach="docs[:1]" t-as="o">
                 <t t-set="certificate" t-value="o"/>
 
-                <div class="article certificate-page"
-                     t-att-data-oe-model="certificate._name"
-                     t-att-data-oe-id="certificate.id"
+                <div class="certificate-page"
                      style="
                         width: 297mm;
-                        height: 209mm;
+                        height: 210mm;
                         margin: 0;
-                        padding: 8mm;
+                        padding: 0;
                         position: relative;
-                        font-family: 'Times New Roman', serif;
-                        color: #1f2d3d;
                         background: #ffffff;
-                        border: 8px solid #1f4e79;
-                        box-sizing: border-box;
                         overflow: hidden;
+                        box-sizing: border-box;
                      ">
 
-                    <div style="position:absolute; top:8mm; left:8mm; right:8mm; bottom:8mm; border:2px solid #d4af37;"></div>
+                    <div class="article"
+                         t-att-data-oe-model="certificate._name"
+                         t-att-data-oe-id="certificate.id"
+                         style="
+                            width: 292mm;
+                            height: 207mm;
+                            position: absolute;
+                            top: 1.5mm;
+                            left: 2.5mm;
+                            padding: 8mm;
+                            font-family: 'Times New Roman', serif;
+                            color: #1f2d3d;
+                            background: #ffffff;
+                            border: 8px solid #1f4e79;
+                            box-sizing: border-box;
+                            overflow: hidden;
+                         ">
 
-                    <div style="position:absolute; top:14mm; left:14mm; width:22mm; height:22mm; border-top:4px solid #d4af37; border-left:4px solid #d4af37;"></div>
-                    <div style="position:absolute; top:14mm; right:14mm; width:22mm; height:22mm; border-top:4px solid #d4af37; border-right:4px solid #d4af37;"></div>
-                    <div style="position:absolute; bottom:14mm; left:14mm; width:22mm; height:22mm; border-bottom:4px solid #d4af37; border-left:4px solid #d4af37;"></div>
-                    <div style="position:absolute; bottom:14mm; right:14mm; width:22mm; height:22mm; border-bottom:4px solid #d4af37; border-right:4px solid #d4af37;"></div>
+                        <!-- Inner Border -->
+                        <div style="position:absolute; top:8mm; left:8mm; right:8mm; bottom:8mm; border:2px solid #d4af37;"></div>
 
-                    <div style="text-align:center; margin-top:4mm; position:relative; z-index:2;">
-                        <div style="width:18mm; height:18mm; line-height:18mm; margin:0 auto 3mm auto; background:#1f4e79; border:2px solid #d4af37; border-radius:50%; text-align:center; overflow:hidden;">
-                            <t t-if="res_company.logo">
-                                <img t-att-src="image_data_uri(res_company.logo)"
-                                     style="width:15mm; height:15mm; max-width:15mm; max-height:15mm; margin-top:1.5mm; object-fit:contain;"/>
-                            </t>
+                        <!-- Decorative Corner -->
+                        <div style="position:absolute; top:14mm; left:14mm; width:22mm; height:22mm; border-top:4px solid #d4af37; border-left:4px solid #d4af37;"></div>
+                        <div style="position:absolute; top:14mm; right:14mm; width:22mm; height:22mm; border-top:4px solid #d4af37; border-right:4px solid #d4af37;"></div>
+                        <div style="position:absolute; bottom:14mm; left:14mm; width:22mm; height:22mm; border-bottom:4px solid #d4af37; border-left:4px solid #d4af37;"></div>
+                        <div style="position:absolute; bottom:14mm; right:14mm; width:22mm; height:22mm; border-bottom:4px solid #d4af37; border-right:4px solid #d4af37;"></div>
+
+                        <!-- Header -->
+                        <div style="text-align:center; margin-top:4mm; position:relative; z-index:2;">
+                            <div style="width:18mm; height:18mm; line-height:18mm; margin:0 auto 3mm auto; background:#1f4e79; border:2px solid #d4af37; border-radius:50%; text-align:center; overflow:hidden;">
+                                <t t-if="res_company.logo">
+                                    <img t-att-src="image_data_uri(res_company.logo)"
+                                         style="width:15mm; height:15mm; max-width:15mm; max-height:15mm; margin-top:1.5mm; object-fit:contain;"/>
+                                </t>
+                            </div>
+
+                            <h3 style="margin:0; font-size:22px; color:#1f4e79; letter-spacing:2px; font-weight:normal;"
+                                t-esc="res_company.name or company.name"/>
+
+                            <div style="width:65mm; height:1px; background:#d4af37; margin:4mm auto;"></div>
+
+                            <h1 style="margin:6mm 0 1mm 0; font-size:46px; color:#1f4e79; letter-spacing:4px; text-transform:uppercase; font-weight:normal;">
+                                CERTIFICATE
+                            </h1>
+
+                            <h2 style="margin:0 0 5mm 0; font-size:27px; color:#d4af37; font-style:italic; font-weight:normal;"
+                                t-esc="certificate.name"/>
                         </div>
 
-                        <h3 style="margin:0; font-size:22px; color:#1f4e79; letter-spacing:2px; font-weight:normal;"
-                            t-esc="res_company.name or company.name"/>
-
-                        <div style="width:65mm; height:1px; background:#d4af37; margin:4mm auto;"></div>
-
-                        <h1 style="margin:6mm 0 1mm 0; font-size:46px; color:#1f4e79; letter-spacing:4px; text-transform:uppercase; font-weight:normal;">
-                            CERTIFICATE
-                        </h1>
-
-                        <h2 style="margin:0 0 5mm 0; font-size:27px; color:#d4af37; font-style:italic; font-weight:normal;"
-                            t-esc="certificate.name"/>
-                    </div>
-
-                    <div style="text-align:center; padding:0 30mm; margin-top:7mm; position:relative; z-index:2;">
-                        <p style="font-size:20px; margin:0 0 5mm 0; color:#1f2d3d;">
-                            This is proudly presented to
-                        </p>
-
-                        <h2 style="font-size:38px; color:#1f4e79; margin:0; font-weight:bold; border-bottom:2px solid #d4af37; display:inline-block; padding:0 20mm 2mm 20mm;"
-                            t-esc="certificate.recipient_name"/>
-
-                        <div style="font-size:15px; line-height:1.55; margin:10mm auto 0 auto; width:72%; max-height:18mm; overflow:hidden; color:#1f2d3d; text-align:center; font-family:'Times New Roman', serif;"
-                             t-field="certificate.description"/>
-                    </div>
-
-                    <div style="position:absolute; left:22mm; right:22mm; bottom:22mm; height:32mm; z-index:2; font-family:Arial, sans-serif;">
-
-                        <div style="position:absolute; left:0; bottom:4mm; width:85mm; font-size:13px; color:#1f2d3d; line-height:1.45;">
-                            <p style="margin:1mm 0;">
-                                <strong style="color:#1f4e79;">Certificate No:</strong>
-                                <span t-esc="certificate.certificate_number"/>
+                        <!-- Body -->
+                        <div style="text-align:center; padding:0 30mm; margin-top:7mm; position:relative; z-index:2;">
+                            <p style="font-size:20px; margin:0 0 5mm 0; color:#1f2d3d;">
+                                This is proudly presented to
                             </p>
-                            <p style="margin:1mm 0;">
-                                <strong style="color:#1f4e79;">Issue Date:</strong>
-                                <span t-field="certificate.issue_date"/>
-                            </p>
-                            <p style="margin:1mm 0;" t-if="certificate.expiry_date">
-                                <strong style="color:#1f4e79;">Valid Until:</strong>
-                                <span t-field="certificate.expiry_date"/>
-                            </p>
+
+                            <h2 style="font-size:38px; color:#1f4e79; margin:0; font-weight:bold; border-bottom:2px solid #d4af37; display:inline-block; padding:0 20mm 2mm 20mm;"
+                                t-esc="certificate.recipient_name"/>
+
+                            <div style="font-size:15px; line-height:1.55; margin:10mm auto 0 auto; width:72%; max-height:18mm; overflow:hidden; color:#1f2d3d; text-align:center; font-family:'Times New Roman', serif;"
+                                 t-field="certificate.description"/>
                         </div>
 
-                        <div style="position:absolute; left:122mm; bottom:0; width:24mm; text-align:center;">
-                            <t t-if="certificate.qr_code">
-                                <img t-att-src="image_data_uri(certificate.qr_code)"
-                                     style="height:22mm; width:22mm; border:1px solid #1f4e79; padding:2mm; background:#ffffff;"/>
-                            </t>
-                            <div style="margin-top:1mm; font-size:8px; color:#1f4e79; letter-spacing:1px; text-transform:uppercase; white-space:nowrap;">
-                                Scan to Verify
+                        <!-- Bottom Info + QR + Signature -->
+                        <div style="position:absolute; left:22mm; right:22mm; bottom:22mm; height:32mm; z-index:2; font-family:Arial, sans-serif;">
+
+                            <div style="position:absolute; left:0; bottom:4mm; width:85mm; font-size:13px; color:#1f2d3d; line-height:1.45;">
+                                <p style="margin:1mm 0;">
+                                    <strong style="color:#1f4e79;">Certificate No:</strong>
+                                    <span t-esc="certificate.certificate_number"/>
+                                </p>
+                                <p style="margin:1mm 0;">
+                                    <strong style="color:#1f4e79;">Issue Date:</strong>
+                                    <span t-field="certificate.issue_date"/>
+                                </p>
+                                <p style="margin:1mm 0;" t-if="certificate.expiry_date">
+                                    <strong style="color:#1f4e79;">Valid Until:</strong>
+                                    <span t-field="certificate.expiry_date"/>
+                                </p>
+                            </div>
+
+                            <div style="position:absolute; left:119mm; bottom:0; width:24mm; text-align:center;">
+                                <t t-if="certificate.qr_code">
+                                    <img t-att-src="image_data_uri(certificate.qr_code)"
+                                         style="height:22mm; width:22mm; border:1px solid #1f4e79; padding:2mm; background:#ffffff;"/>
+                                </t>
+                                <div style="margin-top:1mm; font-size:8px; color:#1f4e79; letter-spacing:1px; text-transform:uppercase; white-space:nowrap;">
+                                    Scan to Verify
+                                </div>
+                            </div>
+
+                            <div style="position:absolute; right:22mm; bottom:0; width:75mm; text-align:center; color:#1f4e79;">
+                                <t t-if="certificate.signatory_id and certificate.signatory_id.signature_image">
+                                    <img t-att-src="image_data_uri(certificate.signatory_id.signature_image)"
+                                         style="height:13mm; max-width:55mm; object-fit:contain; margin-bottom:1mm;"/>
+                                </t>
+
+                                <div style="border-top:2px solid #1f4e79; margin:2mm auto 0 auto; padding-top:1.5mm; width:65mm;">
+                                    <strong style="font-size:15px; color:#1f4e79; font-family:'Times New Roman', serif;"
+                                            t-esc="certificate.signatory_id.name if certificate.signatory_id else ''"/>
+                                    <br/>
+                                    <span style="font-size:12px; color:#555555; font-style:italic; font-family:'Times New Roman', serif;">
+                                        Principal / Director
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
-                        <div style="position:absolute; right:28mm; bottom:0; width:75mm; text-align:center; color:#1f4e79;">
-                            <t t-if="certificate.signatory_id and certificate.signatory_id.signature_image">
-                                <img t-att-src="image_data_uri(certificate.signatory_id.signature_image)"
-                                     style="height:13mm; max-width:55mm; object-fit:contain; margin-bottom:1mm;"/>
-                            </t>
-
-                            <div style="border-top:2px solid #1f4e79; margin:2mm auto 0 auto; padding-top:1.5mm; width:65mm;">
-                                <strong style="font-size:15px; color:#1f4e79; font-family:'Times New Roman', serif;"
-                                        t-esc="certificate.signatory_id.name if certificate.signatory_id else ''"/>
-                                <br/>
-                                <span style="font-size:12px; color:#555555; font-style:italic; font-family:'Times New Roman', serif;">
-                                    Principal / Director
-                                </span>
-                            </div>
+                        <!-- Seal -->
+                        <div style="position:absolute; bottom:34mm; left:50%; transform:translateX(-50%); width:27mm; height:27mm; border:3px solid #d4af37; border-radius:50%; text-align:center; line-height:27mm; color:#d4af37; font-size:16px; font-weight:bold; opacity:0.35; z-index:1;">
+                            SEAL
                         </div>
-                    </div>
 
-                    <div style="position:absolute; bottom:34mm; left:50%; transform:translateX(-50%); width:27mm; height:27mm; border:3px solid #d4af37; border-radius:50%; text-align:center; line-height:27mm; color:#d4af37; font-size:16px; font-weight:bold; opacity:0.35; z-index:1;">
-                        SEAL
                     </div>
-
                 </div>
             </t>
         </t>
