@@ -11,8 +11,7 @@ class CertificateIssued(models.Model):
     _rec_name = 'certificate_number'
     _order = 'issue_date desc'
 
-    certificate_number = fields.Char('Certificate No', readonly=True, copy=False,
-                                     default=lambda self: self.env['ir.sequence'].next_by_code('certificate.issued'))
+    certificate_number = fields.Char('Certificate No', readonly=True, copy=False, default='New')
 
     name = fields.Char('Certificate Title', required=True)
 
@@ -48,6 +47,13 @@ class CertificateIssued(models.Model):
         ('issued', 'Issued'),
         ('cancel', 'Cancelled')
     ], default='draft', string="Status", tracking=True)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('certificate_number', 'New') == 'New':
+                vals['certificate_number'] = self.env['ir.sequence'].next_by_code('certificate.issued') or 'New'
+        return super().create(vals_list)
 
     @api.depends('student_id', 'faculty_id', 'employee_id', 'recipient_type')
     def _compute_recipient_name(self):

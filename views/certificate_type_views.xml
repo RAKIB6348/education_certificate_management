@@ -8,7 +8,6 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="code"/>
-                <field name="active" invisible="1"/>
             </tree>
         </field>
     </record>

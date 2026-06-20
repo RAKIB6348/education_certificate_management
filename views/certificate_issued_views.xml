@@ -103,6 +103,6 @@
               name="Issued Certificates"
               parent="menu_certificate_root"
               action="action_certificate_issued"
-              sequence="20"/>
+              sequence="1"/>
 
 </odoo>

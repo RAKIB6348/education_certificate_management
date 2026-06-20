@@ -7,7 +7,7 @@ class CertificateType(models.Model):
     _description = 'Certificate Type'
     _order = 'sequence, name'
 
-    name = fields.Char('Certificate Type', required=True, translate=True)
+    name = fields.Char('Certificate Type', required=True)
     sequence = fields.Integer('Sequence', default=10)
     code = fields.Char('Code', size=16)
     description = fields.Text('Description')
