@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_certificate_type_user","certificate.type.user","model_certificate_type","base.group_user",1,1,1,1
+"access_certificate_template_user","certificate.template.user","model_certificate_template","base.group_user",1,1,1,1
+"access_certificate_issued_user","certificate.issued.user","model_certificate_issued","base.group_user",1,1,1,1

@@ -1,0 +1,53 @@
+<odoo>
+    <template id="certificate_report_template">
+        <t t-call="web.external_layout">
+            <div style="position:relative; height:850px; width:1200px; margin:0 auto; background-size:cover; background-position:center;"
+                 t-att-style="'background-image:url(data:image/png;base64,' + (template.background_image or '') + ')'">
+
+                <!-- Main Content -->
+                <div style="position:absolute; top:260px; left:80px; right:80px; text-align:center; color:#2C3E50; font-family:Arial, sans-serif;">
+                    <h1 style="font-size:42px; font-weight:bold; margin-bottom:20px;" t-esc="certificate.name"/>
+                    <p style="font-size:18px; margin-bottom:30px;">This is to certify that</p>
+
+                    <h2 style="font-size:29px; color:#2980B9; font-weight:bold;" t-esc="certificate.recipient_name"/>
+
+                    <div style="margin:40px 40px; font-size:17px; line-height:1.6;" t-field="certificate.description"/>
+                </div>
+
+                <!-- Signature Area -->
+                <div style="position:absolute; bottom:150px; right:110px; text-align:center;">
+                    <t t-if="certificate.signatory_id and certificate.signatory_id.signature_image">
+                        <img t-att-src="image_data_uri(certificate.signatory_id.signature_image)"
+                             style="height:90px;"/>
+                        <br/><br/>
+                        <strong t-esc="certificate.signatory_id.name"/>
+                        <br/>
+                        <small t-esc="certificate.template_id.signatory_title or 'Principal / Director'"/>
+                    </t>
+                </div>
+
+                <!-- QR Code + Certificate Number -->
+                <div style="position:absolute; bottom:90px; left:90px; text-align:center;">
+                    <t t-if="certificate.qr_code">
+                        <img t-att-src="'data:image/png;base64,' + certificate.qr_code" style="height:115px;"/>
+                    </t>
+                    <br/>
+                    <small style="color:#555; font-size:12px;" t-esc="certificate.certificate_number"/>
+                </div>
+
+                <div style="position:absolute; bottom:55px; left:90px; font-size:12px; color:#7f8c8d;">
+                    Issued on: <span t-esc="format_date(certificate.issue_date)"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_certificate_report" model="ir.actions.report">
+        <field name="name">Certificate</field>
+        <field name="model">certificate.issued</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">school_certificate.certificate_report_template</field>
+        <field name="report_file">school_certificate.certificate_report_template</field>
+        <field name="print_report_name">'CERT-' + (object.certificate_number or '')</field>
+    </record>
+</odoo>

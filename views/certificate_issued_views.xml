@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="certificate_issued_tree_view" model="ir.ui.view">
+        <field name="name">certificate.issued.tree</field>
+        <field name="model">certificate.issued</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="certificate_number"/>
+                <field name="name"/>
+                <field name="recipient_type"/>
+                <field name="recipient_name"/>
+                <field name="template_id"/>
+                <field name="issue_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="certificate_issued_form_view" model="ir.ui.view">
+        <field name="name">certificate.issued.form</field>
+        <field name="model">certificate.issued</field>
+        <field name="arch" type="xml">
+            <form string="Certificate">
+                <header>
+                    <button name="action_issue" string="Issue Certificate" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="%(action_certificate_report)d" string="Print Certificate"
+                            type="action" class="btn-secondary"
+                            invisible="state != 'issued'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,issued"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_certificate_report)d" type="action" class="oe_stat_button" icon="fa-print"
+                                string="Print" invisible="state != 'issued'"/>
+                    </div>
+
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="certificate_number" readonly="1"/>
+                            <field name="recipient_type" widget="radio" required="1"/>
+
+                            <!-- Dynamic Fields based on Recipient Type -->
+                            <field name="student_id"
+                                   invisible="recipient_type != 'student'" required="recipient_type == 'student'"/>
+                            <field name="faculty_id"
+                                   invisible="recipient_type != 'faculty'" required="recipient_type == 'faculty'"/>
+                            <field name="employee_id"
+                                   invisible="recipient_type != 'employee'" required="recipient_type == 'employee'"/>
+
+                            <field name="recipient_name" readonly="1" string="Recipient"/>
+                        </group>
+
+                        <group>
+                            <field name="template_id" required="1"/>
+                            <field name="certificate_type_id"/>
+                            <field name="issue_date"/>
+                            <field name="expiry_date"/>
+                            <field name="signatory_id" domain="[('signature_image', '!=', False)]"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Certificate Content">
+                            <field name="description" placeholder="Write the achievement, reason or description here..."/>
+                        </page>
+
+                        <page string="QR Code" invisible="not qr_code">
+                            <group>
+                                <field name="qr_code" widget="image" readonly="1" height="180" width="180"/>
+                                <field name="certificate_number" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Template Preview" invisible="not template_id">
+                            <field name="template_id" readonly="1" widget="many2one_avatar"/>
+                            <field name="template_id.background_image" widget="image" readonly="1" height="400"/>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_certificate_issued" model="ir.actions.act_window">
+        <field name="name">Certificates</field>
+        <field name="res_model">certificate.issued</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_certificate_issued"
+              name="Issued Certificates"
+              parent="school_certificate.menu_certificate_root"
+              action="action_certificate_issued"
+              sequence="20"/>
+
+</odoo>
