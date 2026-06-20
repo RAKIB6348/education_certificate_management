@@ -13,8 +13,8 @@
                 <field name="recipient_name"/>
                 <field name="issue_date"/>
                 <field name="state" widget="badge" decoration-warning="state == 'draft'"
-       decoration-success="state == 'issued'"
-       decoration-danger="state == 'cancel'"/>
+                       decoration-success="state == 'issued'"
+                       decoration-danger="state == 'cancel'"/>
             </tree>
         </field>
     </record>
@@ -36,13 +36,16 @@
 
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="%(action_certificate_report)d" type="action" class="oe_stat_button" icon="fa-print"
+                        <button name="%(action_certificate_report)d" type="action" class="oe_stat_button"
+                                icon="fa-print"
                                 string="Print" invisible="state != 'issued'"/>
                     </div>
 
                     <div class="oe_title">
                         <label for="name"/>
-                        <h1><field name="name"/></h1>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
                     </div>
 
                     <group>
@@ -71,7 +74,8 @@
 
                     <notebook>
                         <page string="Certificate Content">
-                            <field name="description" placeholder="Write the achievement, reason or description here..."/>
+                            <field name="description"
+                                   placeholder="Write the achievement, reason or description here..."/>
                         </page>
 
                         <page string="QR Code" invisible="not qr_code">

@@ -109,10 +109,6 @@
                                 <strong>Valid Until:</strong>
                                 <span t-field="certificate.expiry_date"/>
                             </p>
-                            <p style="margin:4px 0;" t-if="certificate.certificate_type_id">
-                                <strong>Certificate Type:</strong>
-                                <span t-esc="certificate.certificate_type_id.name"/>
-                            </p>
                         </div>
 
                         <!-- QR Code -->
