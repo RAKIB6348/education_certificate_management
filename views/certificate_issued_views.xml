@@ -12,7 +12,9 @@
                 <field name="recipient_type"/>
                 <field name="recipient_name"/>
                 <field name="issue_date"/>
-                <field name="state"/>
+                <field name="state" widget="badge" decoration-warning="state == 'draft'"
+       decoration-success="state == 'issued'"
+       decoration-danger="state == 'cancel'"/>
             </tree>
         </field>
     </record>
