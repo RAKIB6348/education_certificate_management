@@ -5,18 +5,23 @@
                 <t t-set="certificate" t-value="o"/>
                 <t t-call="web.basic_layout">
 
-                    <div style="
-                        width: 1100px;
-                        height: 760px;
-                        margin: 30px auto;
-                        padding: 35px;
-                        position: relative;
-                        font-family: 'Times New Roman', serif;
-                        color: #1f2d3d;
-                        background: #ffffff;
-                        border: 12px solid #1f4e79;
-                        box-sizing: border-box;
-                    ">
+                    <div class="article"
+     t-att-data-oe-model="certificate._name"
+     t-att-data-oe-id="certificate.id"
+     style="
+        width: 1122px;
+        height: 793px;
+        margin: 0;
+        padding: 28px;
+        position: relative;
+        font-family: 'Times New Roman', serif;
+        color: #1f2d3d;
+        background: #ffffff;
+        border: 12px solid #1f4e79;
+        box-sizing: border-box;
+        overflow: hidden;
+        page-break-after: avoid;
+     ">
 
                         <!-- Inner Border -->
                         <div style="
@@ -73,23 +78,23 @@
                             " t-esc="certificate.name"/>
                         </div>
 
-                       <!-- Body -->
-<div style="
+                        <!-- Body -->
+                        <div style="
     text-align:center;
     padding: 0 80px;
     margin-top: 28px;
     position:relative;
     z-index:2;
 ">
-    <p style="
+                            <p style="
         font-size:22px;
         margin-bottom:18px;
         color:#1f2d3d;
     ">
-        This is proudly presented to
-    </p>
+                                This is proudly presented to
+                            </p>
 
-    <h2 style="
+                            <h2 style="
         font-size:42px;
         color:#1f4e79;
         margin: 10px 0;
@@ -99,7 +104,7 @@
         padding: 0 50px 8px 50px;
     " t-esc="certificate.recipient_name"/>
 
-    <div style="
+                            <div style="
         font-size:16px;
         line-height:1.75;
         margin:30px auto 60px auto;
@@ -110,7 +115,7 @@
         text-align:center;
         font-family:'Times New Roman', serif;
     " t-field="certificate.description"/>
-</div>
+                        </div>
 
                         <!-- Bottom Info + QR + Signature Section -->
                         <div style="
@@ -252,12 +257,27 @@
         </t>
     </template>
 
+    <record id="paperformat_certificate_landscape" model="report.paperformat">
+        <field name="name">Certificate Landscape Full Page</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="dpi">96</field>
+        <field name="disable_shrinking" eval="True"/>
+    </record>
+
+
     <record id="action_certificate_report" model="ir.actions.report">
         <field name="name">Certificate</field>
         <field name="model">certificate.issued</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">education_certificate_management.certificate_report_template</field>
         <field name="report_file">education_certificate_management.certificate_report_template</field>
+        <field name="paperformat_id" ref="education_certificate_management.paperformat_certificate_landscape"/>
         <field name="print_report_name">'CERT-' + (object.recipient_name or '')</field>
     </record>
 </odoo>
