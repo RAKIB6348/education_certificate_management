@@ -30,18 +30,12 @@
                     <button name="action_issue" string="Issue Certificate" type="object"
                             class="btn-primary" invisible="state != 'draft'"/>
                     <button name="%(action_certificate_report)d" string="Print Certificate"
-                            type="action" class="btn-secondary"
+                            type="action" class="btn-primary"
                             invisible="state != 'issued'"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,issued"/>
                 </header>
 
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="%(action_certificate_report)d" type="action" class="oe_stat_button"
-                                icon="fa-print"
-                                string="Print" invisible="state != 'issued'"/>
-                    </div>
-
                     <div class="oe_title">
                         <label for="name"/>
                         <h1>
