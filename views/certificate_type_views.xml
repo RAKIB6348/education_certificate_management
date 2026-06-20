@@ -41,7 +41,7 @@
 
     <menuitem id="menu_certificate_type"
               name="Certificate Types"
-              parent="school_certificate.menu_certificate_root"
+              parent="menu_certificate_root"
               action="action_certificate_type"
               sequence="5"/>
 </odoo>

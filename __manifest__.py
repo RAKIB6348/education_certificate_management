@@ -20,6 +20,7 @@
     'depends': [
         'base',
         'hr',
+        'mail',
         'education_core',
 
     ],
@@ -29,9 +30,8 @@
         'data/sequence.xml',
         'views/certificate_menu.xml',
         'views/certificate_type_views.xml',
-        'views/certificate_template_views.xml',
-        'views/certificate_issued_views.xml',
         'reports/certificate_report.xml',
+        'views/certificate_issued_views.xml',
     ],
 
     'installable': True,

@@ -1,8 +1,7 @@
 <odoo>
     <template id="certificate_report_template">
         <t t-call="web.external_layout">
-            <div style="position:relative; height:850px; width:1200px; margin:0 auto; background-size:cover; background-position:center;"
-                 t-att-style="'background-image:url(data:image/png;base64,' + (template.background_image or '') + ')'">
+            <div style="position:relative; height:850px; width:1200px; margin:0 auto; background-size:cover; background-position:center;">
 
                 <!-- Main Content -->
                 <div style="position:absolute; top:260px; left:80px; right:80px; text-align:center; color:#2C3E50; font-family:Arial, sans-serif;">
@@ -22,7 +21,7 @@
                         <br/><br/>
                         <strong t-esc="certificate.signatory_id.name"/>
                         <br/>
-                        <small t-esc="certificate.template_id.signatory_title or 'Principal / Director'"/>
+                        <small t-esc="'Principal / Director'"/>
                     </t>
                 </div>
 
@@ -46,8 +45,8 @@
         <field name="name">Certificate</field>
         <field name="model">certificate.issued</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">school_certificate.certificate_report_template</field>
-        <field name="report_file">school_certificate.certificate_report_template</field>
+        <field name="report_name">education_certificate_management.certificate_report_template</field>
+        <field name="report_file">education_certificate_management.certificate_report_template</field>
         <field name="print_report_name">'CERT-' + (object.certificate_number or '')</field>
     </record>
 </odoo>

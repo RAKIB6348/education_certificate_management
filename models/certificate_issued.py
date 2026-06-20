@@ -7,6 +7,7 @@ from io import BytesIO
 class CertificateIssued(models.Model):
     _name = 'certificate.issued'
     _description = 'Issued Certificate'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'certificate_number'
     _order = 'issue_date desc'
 
@@ -28,7 +29,6 @@ class CertificateIssued(models.Model):
     recipient_name = fields.Char('Recipient Name', compute='_compute_recipient_name', store=True)
 
     certificate_type_id = fields.Many2one('certificate.type', string="Certificate Type")
-    template_id = fields.Many2one('certificate.template', string="Template", required=True)
 
     issue_date = fields.Date('Issue Date', default=fields.Date.today())
     expiry_date = fields.Date('Valid Until')
